@@ -1,0 +1,9 @@
+---  
+title: "Homework 05: Factor and figure management"  
+author: "Adam Mattsson"  
+date: "`r format(Sys.Date())`"
+output: github_document
+keep_md: TRUE
+message: FALSE
+Warnings: FALSE
+---
