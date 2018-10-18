@@ -32,7 +32,7 @@ With the data set of your choice, after ensuring the variable(s) you’re explor
 - Drop factor/levels
 - Reorder levels based on knowledge from data.
 
-For this part of the assignment I chosed to work on the `gapminder` dataset, information on the Gapminder datset can be found [here](https://www.gapminder.org/).
+For this part of the assignment I choose to work on the `gapminder` dataset, information on the Gapminder dataset can be found [here](https://www.gapminder.org/).
 
 ### Drop Oceania
 Filter the Gapminder data to remove observations associated with the `continent` of Oceania. Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.
@@ -42,20 +42,20 @@ First, lets see how many levels we have in the `continent` factor by calling `le
 levels(gapminder$continent)
 ```
 
-In total, there are 5 levels (Africa, Americas, Asia, Europe and Oceania) in the `continent` varaible. Now it's time to get rid of the "Oceania" level in the `continent` factor. This is achieved by filtering the dataset.
+In total, there are 5 levels (Africa, Americas, Asia, Europe and Oceania) in the `continent` variable. Now it's time to get rid of the "Oceania" level in the `continent` factor. This is achieved by filtering the dataset.
 ```{r filt_Oceania_gap}
 filtered.gapminder <- gapminder %>% 
   filter(continent != "Oceania" ) #remove all entries associated with Oceania
 ```
 
-We can easily inspect the levels of the factors to see if we succesfully got rid of the Oceania data by utilizing the following chunk of code:
+We can easily inspect the levels of the factors to see if we successfully got rid of the Oceania data by utilizing the following chunk of code:
 ```{r filt_Oceania_sanCheck}
 table(filtered.gapminder$continent) #print continent in table
 ```
 
-As we can see we have sucesfully removed all the data from the Oceania level. However, the level is still present and we can remove this unused factor level by calling the following code:
+As we can see we have successfully removed all the data from the Oceania level. However, the level is still present and we can remove this unused factor level by calling the following code:
 ```{r rm_Oceania_gap}
-filtered.gapminder.oceania <- droplevels(filtered.gapminder) #remove unsused levels
+filtered.gapminder.oceania <- droplevels(filtered.gapminder) #remove unused levels
 ```
 
 To inspect the factor once again we call the following code:
@@ -63,7 +63,7 @@ To inspect the factor once again we call the following code:
 table(filtered.gapminder.oceania$continent) #print content in table
 ```
 
-All the data from the Oceania level has now been removed, as well the unused factor level. Just for comparison we can inspect the numbers of rows and levels of affected factors before and after removing Oceania from the Gapminder dataset, as such.
+All the data from the Oceania level has now been removed, as well the unused factor level. Just for comparison, we can inspect the numbers of rows and levels of affected factors before and after removing Oceania from the Gapminder dataset, as such.
 ```{r comp_check}
 nrow(gapminder) #number of rows in original gapminder datset
 nrow(filtered.gapminder.oceania) #number of rows in filtered gapminder datset
@@ -72,12 +72,12 @@ levels(gapminder$continent) #return the number of levels in the continent variab
 levels(filtered.gapminder.oceania$continent) #return the number of levels in the continent variable in filtered gapminder dataset
 ```
 
-In the orignal data set we had a total of 1704 observations (rows) and after filtering an d removing the Oceania level in `continent` variable we have 1680 observations (24 observations were removed in this filtering process). We can also see that the Oceania level has been successfully dropped by comparing the levels of each dataset. 
+In the original dataset we had a total of 1704 observations (rows) and after filtering and removing the Oceania level in `continent` variable we have 1680 observations (24 observations were removed in this filtering process). We can also see that the Oceania level has been successfully dropped by comparing the levels of each dataset. 
 
 ### Reorder the levels of country or continent 
 Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median.
 
-For this task I'm presenting the range of GDP per capita for each country as my summary statistic. The top 10 countries are presented in the table bellow in descending order.
+For this task, I'm presenting the range of GDP per capita for each country as my summary statistic. The top 10 countries are presented in the table below in descending order.
 ```{r factor_reord_gap}
 gap.gdp.range <- gapminder %>% 
   group_by(country) %>% #group by country
@@ -91,11 +91,11 @@ knitr::kable(head(gap.gdp.range, n=10),
              caption = "<h4>Ranges in GDP per capita: 1952-2007</h4>")
 ```
 
-From this table, we can see that the country with the biggest range in GDP per capita is **Kuwait**. The large spread can possible be explained by the fact that some people made a huge fortune in exploiting resources such as oil, while others remained verry poor. 
+From this table, we can see that the country with the biggest range in GDP per capita is **Kuwait**. The large spread can possibly be explained by the fact that some people made a huge fortune in exploiting resources such as oil, while others remained very poor. 
 
 Here are some other useful ways in which you can reorder levels of a factor:
 
-**Reordr continents by frequency**
+**Reorder continents by frequency**
 ```{r reorder_freq}
 t1 <- filtered.gapminder.oceania
 t1$continent %>% 
@@ -120,7 +120,7 @@ t1$continent %>%
 #### Explore the effects of arrange
 Does merely arranging the data have any effect on, say, a figure?
 
-First, lets create a new dataset for this part of the assignment. We can create a new dataset from the original gapminder, lets say life expectancy for European countries in 2007.
+First, let's create a new dataset for this part of the assignment. We can create a new dataset from the original gapminder, let's say life expectancy for European countries in 2007.
 ```{r gap_eur_2007_lifeexp}
 t2 <- gapminder %>% 
   filter(year == 2007, continent == "Europe") %>% #filter to obtain entries for european countries in 2007
@@ -148,7 +148,7 @@ ggplot(t2.arrange, aes(x = lifeExp, y = country)) + geom_point() +
   labs(title = "Plot after arrangeing lifeExp in descending order")
 ```
 
-As we can see there is no difference in the two plots. 
+As we can see there is no difference between the two plots. 
 
 If we want to rearange the order factor levels (countries by lifeExp) we need to implement the `fct_reorder`function, as such:
 ```{r plot_gap_eur_2007_lifeexp_fct}
@@ -156,7 +156,7 @@ ggplot(t2, aes(x = lifeExp, y = fct_reorder(country, lifeExp))) +
   geom_point()
 ```
 
-As we can observe in this last plot, the orders of the factor levels has been reordered and gives us a better visualization of the data. In other words, `arrange()` alone does not have any effect on the presented figures and the use of `forcats` package could help us in our task.
+As we can observe in this last plot, the orders of the factor levels have been reordered and give us a better visualization of the data. In other words, `arrange()` alone does not have any effect on the presented figures and the use of `forcats` package could help us in our task.
 
 ## File I/O
 First, let's try the `write_csv` function and see how the data looks when we read it back into R. For now, I'll use a temporary folder using the `tempfile` argument.
@@ -166,7 +166,7 @@ write_csv(gap.gdp.range, tmp) #write reordered data to .csv
 ```
 
 Now, let's read it back in!
-```{r read_csv_example}
+```{r setupchunk, global_options, include=FALSE}}
 csv <- read_csv(tmp) #read data back into R and store as new object
 ```
 
@@ -175,17 +175,17 @@ Is the rearranged order intact? let's check.
 knitr::kable(head(csv, n = 10))
 ```
 
-The order seems to be intact. What about other valuble information such as the type of each variable?
+The order seems to be intact. What about other valuable information such as the type of each variable?
 ```{r gap_comp}
 str(csv)
 str(gap.gdp.range) #summary of reshaped dataset before writing to csv
 ```
 
-We can see that informations such as variable type has been lost when writng to .csv file. One thing we could do, if we want to save the data set in exactly the sme way as it is in our enviroment we can use the `saveRDS` and then load it with `readRDS`. Let's try that approach and compare them in the same way as we did with the csv approach.
+We can see that information such as variable type has been lost when writing to a .csv file. One thing we could do, if we want to save the data set in exactly the same way as it is in our environment we can use the `saveRDS` and then load it with `readRDS`. Let's try that approach and compare them in the same way as we did with the csv approach.
 ```{r rds_example}
 tmp2 <- tempfile("gap.gdp.range", fileext = ".rds") #create tmp
 saveRDS(gap.gdp.range, tmp2) #save as rds
-rds <- readRDS(tmp2) #read rds into and store as new object for comparision
+rds <- readRDS(tmp2) #read rds into and store as new object for comparison
 str(rds)
 str(gap.gdp.range)
 unique(rds == gap.gdp.range)
@@ -194,7 +194,7 @@ unique(rds == gap.gdp.range)
 Nice, they're exactly the same and no information is lost/transformed.
 
 ## Visualization design
-For this part of the task I decided to plot GDP per capita vs life expectancy in Scandinavian countries. The bubble size corresponds to the 
+For this part of the task, I decided to plot GDP per capita vs life expectancy in Scandinavian countries. The bubble size corresponds to the 
 ```{r GDPperCap_vs_LifeExpectancy_Scandinavia}
 bp <- gapminder %>%
   filter(country %in% c('Sweden', 'Denmark', 'Norway')) %>% 
@@ -212,7 +212,7 @@ bp
 ```
 
 ## Writing figures to files
-In order to write a figure to a file we can use the `ggsave()` function. we can also specify the diemensions of the output file in this function. The last part of this assignment is to embed the figure into the report. This is achieved by using `![Alt text](/path/to/img.png)`
+In order to write a figure to a file we can use the `ggsave()` function. we can also specify the dimensions of the output file in this function. The last part of this assignment is to embed the figure into the report. This is achieved by using `![Alt text](/path/to/img.png)`
 
 ```{r writing_GDPperCap_vs_LifeExpectancy_Scandinavia}
 ggsave("GDPperCap_vs_LifeExpectancy_Scandinavia.png",
